@@ -17,7 +17,7 @@ password = s.getfirst("password")
 form_ok = username == secret.username and password == secret.password #If the username and password entered by the user is the same as the username and password in the secret.py file (database in future)
 
 #Cookies
-cookie = SimpleCookie(os.environ.get("HTTP_COOKIE")) #Get the cookie from the browser
+cookie = SimpleCookie.SimpleCookie(os.environ.get("HTTP_COOKIE")) #Get the cookie from the browser
 cookie_username = None
 cookie_password = None
 if cookie.get("username"): #If there is a username in the cookie i.e. if the user has logged in before
@@ -29,12 +29,12 @@ cookie_ok = cookie_username == secret.username and cookie_password == secret.pas
 if cookie_ok: #If the cookie is ok, then set the username and password to the cookie's username and password
     username = cookie_username
     password = cookie_password  
-  
-print("Content-Type: text/html") 
+
+print("Content-Type: text/html")
+if form_ok: #Can be elif too. Can also be done by javascript
+    print(f"Set-Cookie: username={username}") #Set the cookie's username to the username entered by the user.
+    print(f"Set-Cookie: password={password}") #Set the cookie's password to the password entered by the user
 print()
-if form_ok: #Shouldnt this be elif (yes because we don't need to check if the form is ok). Can also be done by javascript
-    print("Set-Cookie: username={};".format(username)) #Set the cookie's username to the username entered by the user. How does this work?
-    print("Set-Cookie: password={};".format(password)) #Set the cookie's password to the password entered by the user
 
 if not username and not password: #If there is anything entered in these fields go to the else clause.
     print(login_page()) # if there is no username or password, then print the login page
@@ -43,5 +43,5 @@ elif username == secret.username and password == secret.password: #In our projec
     print(secret_page(username, password))
 
 else:
-    print(login_page)
+    print(login_page())
     print(f"username: {username}, password: {password}")

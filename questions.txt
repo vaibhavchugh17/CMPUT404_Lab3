@@ -1,18 +1,17 @@
-1. os.environ
+1. We can inspect all the environment variables in Python that our OS sets up using os.environ.
 
-2. QUERY_STRING. We can have multiple queries using the query in the URL which shows up as query string.
+2. The environment variable that contains the query parameter data is QUERY_STRING. We can have multiple queries using the query in the URL which shows up as query string.
 
-4. # Create instance of FieldStorage
-s = cgi.FieldStorage() #Enter the data in the form
-username = s.getfirst("username") #They will look at the form and then see if there is a username and password on the form entered by the user. This form is given in the login_page.
-password = s.getfirst("password")
+3. The environment variable that contains information about the user’s browser is HTTP_USER_AGENT.
 
-5. form_ok ke andar set cookie wali print shit
+4. Posted data comes to the CGI script using cgi.FieldStorage() method. After creating an instance of FieldStorage, we can get values from the posted data using their keys.
 
-6. HTTP_COOKIE wali row.. We can read the cookie using: 
-cookie = SimpleCookie(os.environ.get("HTTP_COOKIE")) #Get the cookie from the browser and so on
+5. To set a cookie from the server, we can use the HTTP header "Set-Cookie".
+Syntax: Set-Cookie: <cookie-name>=<cookie-value>
 
-7. Use javascript console to mention the cookies yourself.
-Cookies are used to store user data. 
+6. HTTP header that the browser uses to send the cookie back is HTTP_COOKIE.
+Syntax: HTTP_COOKIE: <name>=<value>
+We can read the cookie using: cookie = SimpleCookie(os.environ.get("HTTP_COOKIE"))
 
-In the link we should make login.py and hello.py in secret.py enter something in the username and password
+7. Cookies are used to store/cache user data so services can track user activity. 
+Use javascript console to mention the cookies yourself.
